@@ -152,38 +152,6 @@ npm start
 ```
 
 ------------------------------------------------------------------------
-
-## 🐞 Troubleshooting
-
-### ❗ SQL tables not created?
-
-Backend will auto-create them on startup.\
-Make sure SQL is running and connection string is correct.
-
-### ❗ Angular shows NGINX page?
-
-Ensure Dockerfile copies the correct output folder:
-
-    dist/test/browser
-
-### ❗ Cannot connect to SQL?
-
-Check docker-compose connection string:
-
-    Server=sql,1433;Database=ExamDb;User Id=SA;Password=Aa12345!;TrustServerCertificate=True;
-
-------------------------------------------------------------------------
-
-## 📦 Future Improvements
-
--   JWT Authentication\
--   Admin & teacher roles\
--   Exam report export (Excel/PDF)\
--   Logging & monitoring\
--   Publish-ready CI/CD pipeline
-
-------------------------------------------------------------------------
-
 ## 👤 Author
 
 Created by **Fuad Sadıqov**\

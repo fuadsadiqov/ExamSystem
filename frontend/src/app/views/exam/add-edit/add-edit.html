@@ -1,0 +1,55 @@
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-xl font-semibold">
+    @let isEdit = exam() === null ? false : true;
+    {{ isEdit ? 'Update' : 'Add' }} exam
+  </h2>
+</div>
+
+<form class="flex flex-col gap-3" [formGroup]="formGroup">
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Lesson</label>
+    <select formControlName="subjectCode">
+      @for (lesson of lessons; track $index) {
+        <option [value]="lesson.value">{{ lesson.title }}</option>
+      }
+    </select>
+    @if (formGroup.get('subjectCode')?.touched && formGroup.get('subjectCode')?.invalid) {
+    <p class="text-red-500 text-sm mt-1">Subject code is required.</p>
+    }
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Student</label>
+    <select formControlName="studentNumber">
+      @for (student of students; track $index) {
+        <option [value]="student.value">{{ student.title }}</option>
+      }
+    </select>
+    @if (formGroup.get('studentNumber')?.touched && formGroup.get('studentNumber')?.invalid) {
+    <p class="text-red-500 text-sm mt-1">Student number is required.</p>
+    }
+  </div>
+
+  
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Score</label>
+    <input type="number" formControlName="score" class="input" placeholder="Enter score" />
+
+    @if (formGroup.get('score')?.touched && formGroup.get('score')?.invalid) {
+    <p class="text-red-500 text-sm mt-1">Class id is required.</p>
+    }
+  </div>
+
+
+  <div class="flex justify-end gap-2">
+    <button type="button" (click)="onClose()" class="btn">Cancel</button>
+    <button
+      type="submit"
+      [disabled]="formGroup.invalid"
+      (click)="onSubmit()"
+      class="btn btn-success"
+    >
+      Confirm
+    </button>
+  </div>
+</form>

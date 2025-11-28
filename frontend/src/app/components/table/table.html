@@ -1,0 +1,47 @@
+<div class="overflow-x-auto">
+  <table class="min-w-full border border-gray-300 divide-y divide-gray-300">
+    <thead class="bg-gray-100">
+      <tr>
+        @for (col of columns(); track $index) {
+        <th class="px-4 py-2 text-left font-semibold text-gray-700">
+          {{ col.title }}
+        </th>
+        }
+        <th class="px-4 py-2 text-left font-semibold text-gray-700">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-gray-200">
+      @for (row of rows(); track $index) {
+      <tr>
+        @for (col of columns(); track $index) {
+        <td class="px-4 py-2">
+          {{ row[col.key] }}
+        </td>
+        }
+        <td class="px-4 py-2 text-left space-x-2">
+          <button
+            type="button"
+            (click)="onEditClicked(row)"
+            class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            (click)="onDeleteClicked(row)"
+            class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  @if(!rows()!.length){
+  <tr class="flex border border-gray-300 justify-center w-full font-semibold py-3">
+    No data available
+  </tr>
+  }
+</div>

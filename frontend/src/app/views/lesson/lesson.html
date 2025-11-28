@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="flex justify-between items-center">
+    <h1 class="title">Lessons</h1>
+    <button class="btn btn-success" (click)="onAddBtnClick()">Add</button>
+  </div>
+  
+  <app-table
+    class="max-w-2xl"
+    [columns]="columns"
+    [rows]="rows"
+    (onEditOutput)="onEditOutput($event)"
+    (onDeleteOutput)="onDeleteOutput($event)"
+  >
+  </app-table>
+
+  @if (isModalOpen) {
+  <modal (onCloseOutput)="onModalClose()">
+    <add-edit [lesson]="selectedLesson" (onCloseOutput)="onSaveClose()"></add-edit>
+  </modal>
+  }
+</div>

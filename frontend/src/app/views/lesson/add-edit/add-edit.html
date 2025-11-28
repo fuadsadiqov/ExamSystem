@@ -1,0 +1,67 @@
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-xl font-semibold">
+    @let isEdit = lesson() === null ? false : true;
+    {{ isEdit ? 'Update' : 'Add' }} lesson
+  </h2>
+</div>
+
+<form class="flex flex-col gap-3" [formGroup]="formGroup">
+  @if (!isEdit) {
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Subject code</label>
+      <input type="text" formControlName="subjectCode" class="input" placeholder="Enter subject code" />
+
+      @if (formGroup.get('subjectCode')?.touched && formGroup.get('subjectCode')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">Subject code is required.</p>
+      }
+    </div>
+  }
+  <div>
+    
+    <label class="block text-sm font-medium text-gray-700 mb-1">Subject name</label>
+    <input type="text" formControlName="subjectName" class="input" placeholder="Enter subject name" />
+
+    @if (formGroup.get('subjectName')?.touched && formGroup.get('subjectName')?.invalid) {
+    <p class="text-red-500 text-sm mt-1">Subject name is required.</p>
+    }
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Teacher firstname</label>
+    <input type="text" formControlName="teacherFirstName" class="input" placeholder="Enter Teacher firstname" />
+
+    @if (formGroup.get('teacherFirstName')?.touched && formGroup.get('teacherFirstName')?.invalid) {
+    <p class="text-red-500 text-sm mt-1">Teacher firstname is required.</p>
+    }
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Teacher lastname</label>
+    <input type="text" formControlName="teacherLastName" class="input" placeholder="Enter Teacher lastname" />
+
+    @if (formGroup.get('teacherLastName')?.touched && formGroup.get('teacherLastName')?.invalid) {
+    <p class="text-red-500 text-sm mt-1">Teacher lastname is required.</p>
+    }
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Class</label>
+    <input type="number" formControlName="classNumber" class="input" placeholder="Enter class number" />
+
+    @if (formGroup.get('classNumber')?.touched && formGroup.get('classNumber')?.invalid) {
+    <p class="text-red-500 text-sm mt-1">Class number is required.</p>
+    }
+  </div>
+  
+  <div class="flex justify-end gap-2">
+    <button type="button" (click)="onClose()" class="btn">Cancel</button>
+    <button
+      type="submit"
+      [disabled]="formGroup.invalid"
+      (click)="onSubmit()"
+      class="btn btn-success"
+    >
+      Confirm
+    </button>
+  </div>
+</form>

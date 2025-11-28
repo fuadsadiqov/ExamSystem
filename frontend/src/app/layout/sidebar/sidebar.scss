@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+
+.menu {
+  @apply block px-3 py-2 rounded hover:bg-slate-800;
+  &.active {
+    @apply font-bold;
+  }
+}

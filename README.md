@@ -1,160 +1,190 @@
-📘 Student Exam Management System
+# 📘 Student Exam Management System
 
-A full-stack application for managing school subjects, students, and exam results.
+**A full-stack application for managing school subjects, students, and
+exam results.**
 
-🚀 Overview
+------------------------------------------------------------------------
+
+## 🚀 Overview
 
 This system provides a complete environment including:
 
-ASP.NET Core 8 Web API (backend)
+-   **ASP.NET Core 8 Web API** (backend)
+-   **Angular 17** application (frontend)
+-   **SQL Server 2022** database (Docker)
+-   **Automatic database/table creation**
+-   **Docker Compose orchestration**
 
-Angular 17 application (frontend)
+------------------------------------------------------------------------
 
-SQL Server 2022 database (Docker)
+## 📂 Project Structure
 
-Automatic database/table creation
+    project-root/
+    │
+    ├── backend/
+    │   ├── Controllers/
+    │   ├── Models/
+    │   ├── Data/
+    │   ├── Dtos/
+    │   ├── Services/
+    │   ├── Program.cs
+    │   └── Dockerfile
+    │
+    ├── frontend/
+    │   ├── src/
+    │   ├── public/
+    │   ├── angular.json
+    │   ├── package.json
+    │   └── Dockerfile
+    │
+    ├── sql-init/      (Not used — MSSQL does not auto-run init scripts)
+    │   └── init.sql
+    │
+    └── docker-compose.yml
 
-Docker Compose orchestration
+------------------------------------------------------------------------
 
-📂 Project Structure
-project-root/
-│
-├── backend/
-│   ├── Controllers/
-│   ├── Models/
-│   ├── Data/
-│   ├── Dtos/
-│   ├── Services/
-│   ├── Program.cs
-│   └── Dockerfile
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── angular.json
-│   ├── package.json
-│   └── Dockerfile
-│
-├── sql-init/      (Not used — MSSQL does not auto-run init scripts)
-│   └── init.sql
-│
-└── docker-compose.yml
+## 🔧 Technologies Used
 
-🔧 Technologies Used
-Backend
+### **Backend**
 
-ASP.NET Core 8
+-   ASP.NET Core 8\
+-   Entity Framework Core\
+-   Swagger (OpenAPI)
 
-Entity Framework Core
+### **Frontend**
 
-Swagger (OpenAPI)
+-   Angular 17\
+-   TypeScript\
+-   SCSS\
+-   Tailwind CSS\
+-   NGINX (production hosting)
 
-Frontend
+### **Infrastructure**
 
-Angular 17
+-   Docker\
+-   Docker Compose\
+-   SQL Server 2022
 
-TypeScript
+------------------------------------------------------------------------
 
-SCSS
+## 🧩 Data Model
 
-Tailwind CSS
+### **Subject**
 
-NGINX (production hosting)
+  Field              Type
+  ------------------ --------
+  SubjectCode        string
+  SubjectName        string
+  ClassNumber        int
+  TeacherFirstName   string
+  TeacherLastName    string
 
-Infrastructure
+### **Student**
 
-Docker
+  Field                Type
+  -------------------- --------
+  StudentNumber (PK)   int
+  FirstName            string
+  LastName             string
+  ClassNumber          int
 
-Docker Compose
+### **Exam**
 
-SQL Server 2022
+  Field           Type
+  --------------- ----------
+  Id (PK)         int
+  SubjectCode     string
+  StudentNumber   int
+  ExamDate        DateTime
+  Score           int
 
-🧩 Data Model
-Subject
-Field	Type
-SubjectCode	string
-SubjectName	string
-ClassNumber	int
-TeacherFirstName	string
-TeacherLastName	string
-Student
-Field	Type
-StudentNumber (PK)	int
-FirstName	string
-LastName	string
-ClassNumber	int
-Exam
-Field	Type
-Id (PK)	int
-SubjectCode	string
-StudentNumber	int
-ExamDate	DateTime
-Score	int
-⚙️ Automatic Database Initialization
+------------------------------------------------------------------------
 
-MS SQL Server Docker images do not support automatic init scripts.
+## ⚙️ Automatic Database Initialization
+
+MS SQL Server Docker images **do not support** automatic init scripts.
 
 To ensure the system works anywhere:
 
-✔ Backend creates DB automatically
-✔ Backend creates all 3 tables automatically
-✔ Startup routine checks if tables exist — and adds them if missing
+### ✔ Backend creates DB automatically
 
-This means no migration tools, no manual SQL, no init scripts needed.
+### ✔ Backend creates all 3 tables automatically
 
-🐳 Running with Docker
-Start the entire system:
+### ✔ Startup routine checks if tables exist --- and adds them if missing
+
+------------------------------------------------------------------------
+
+## 🐳 Running with Docker
+
+### **Start the entire system:**
+
+``` bash
 docker compose down -v
 docker compose up --build
+```
 
-Services
-Service	URL / Port
-Frontend	http://localhost:4200
+### Services
 
-Backend API	http://localhost:5001/swagger
+  Service       URL / Port
+  ------------- -------------------------------
+  Frontend      http://localhost:4200
+  Backend API   http://localhost:5001/swagger
+  SQL Server    localhost:1433
 
-SQL Server	localhost:1433
-🌐 Local Development (Without Docker)
-Backend
+------------------------------------------------------------------------
+
+## 🌐 Local Development (Without Docker)
+
+### Backend
+
+``` bash
 cd backend/Student-exam-back
 dotnet run
+```
 
-Frontend
+### Frontend
+
+``` bash
 cd frontend
 npm install
 npm start
+```
 
-🐞 Troubleshooting
-❗ SQL tables not created?
+------------------------------------------------------------------------
 
-Backend will auto-create them on startup.
+## 🐞 Troubleshooting
+
+### ❗ SQL tables not created?
+
+Backend will auto-create them on startup.\
 Make sure SQL is running and connection string is correct.
 
-❗ Angular shows NGINX page?
+### ❗ Angular shows NGINX page?
 
 Ensure Dockerfile copies the correct output folder:
 
-dist/test/browser
+    dist/test/browser
 
-❗ Cannot connect to SQL?
+### ❗ Cannot connect to SQL?
 
 Check docker-compose connection string:
 
-Server=sql,1433;Database=ExamDb;User Id=SA;Password=Aa12345!;TrustServerCertificate=True;
+    Server=sql,1433;Database=ExamDb;User Id=SA;Password=Aa12345!;TrustServerCertificate=True;
 
-📦 Future Improvements
+------------------------------------------------------------------------
 
-JWT Authentication
+## 📦 Future Improvements
 
-Admin & teacher roles
+-   JWT Authentication\
+-   Admin & teacher roles\
+-   Exam report export (Excel/PDF)\
+-   Logging & monitoring\
+-   Publish-ready CI/CD pipeline
 
-Exam report export (Excel/PDF)
+------------------------------------------------------------------------
 
-Logging & monitoring
+## 👤 Author
 
-Publish-ready CI/CD pipeline
-
-👤 Author
-
-Created by Fuad Sadıqov
+Created by **Fuad Sadıqov**\
 Full-stack .NET + Angular Developer

@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: exam_sql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Aa12345!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+      - ./sql-init:/docker-entrypoint-initdb.d
+
+  backend:
+    build: ./backend
+    container_name: exam_api
+    depends_on:
+      - sql
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql,1433;Database=ExamDb;User Id=SA;Password=Aa12345!;TrustServerCertificate=True;"
+    ports:
+      - "5001:5001"
+    restart: always
+
+
+  frontend:
+    build: ./frontend
+    container_name: exam_front
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+    restart: always
+
+volumes:
+  sql_data:
